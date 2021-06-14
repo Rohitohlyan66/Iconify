@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.home.ViewPagerFragment">
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_icon_set"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_radio_button"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="Icon Set"
+            android:textColor="@drawable/selector_radio_button_text_color"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rb_icons"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_radio_button"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="Icons"
+            android:textColor="@drawable/selector_radio_button_text_color"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_home_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/radio_group"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>
