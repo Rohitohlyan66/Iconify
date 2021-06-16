@@ -16,5 +16,11 @@ class IconifyRepository {
     suspend fun getAllIconsInIconSet(iconSetId: Int) =
         RetrofitInstance.apiInterface.getAllIconsInIconSet(iconSetId)
 
+    suspend fun getUserDetails(user_id: Int) =
+        RetrofitInstance.apiInterface.getUserDetails(user_id)
+
+    suspend fun getUserIconSets(user_id: Int) =
+        RetrofitInstance.apiInterface.getUserIconSets(user_id)
+
 
 }

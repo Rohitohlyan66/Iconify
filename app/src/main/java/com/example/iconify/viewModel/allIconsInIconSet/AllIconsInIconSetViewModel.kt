@@ -1,4 +1,4 @@
-package com.example.iconify.viewModel.iconSetDetails
+package com.example.iconify.viewModel.allIconsInIconSet
 
 import android.app.Application
 import android.content.Context
@@ -11,46 +11,48 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.iconify.IconifyApplication
-import com.example.iconify.model.iconSetDetails.IconSetDetail
+import com.example.iconify.model.allIconsInIconSet.AllIconsInIconsSet
 import com.example.iconify.repository.IconifyRepository
 import com.example.iconify.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
 
-class IconSetDetailsViewModel(
+class AllIconsInIconSetViewModel(
     private val repository: IconifyRepository,
     app: Application
 ) : AndroidViewModel(app) {
 
-    val iconSetDetails: MutableLiveData<Resource<IconSetDetail>> = MutableLiveData()
 
-    fun getAllDetails(iconset_id: Int) = viewModelScope.launch {
-        safeIconSetDetailsCall(iconset_id)
+    val allIconsInIconSet: MutableLiveData<Resource<AllIconsInIconsSet>> = MutableLiveData()
+
+
+    fun getAllIconsInIconSet(iconSet_id: Int) = viewModelScope.launch {
+        safeAllIconsInIconSetCall(iconSet_id)
     }
 
-    private suspend fun safeIconSetDetailsCall(iconset_id: Int) {
-        iconSetDetails.postValue(Resource.Loading())
+    private suspend fun safeAllIconsInIconSetCall(iconSet_id: Int) {
+        allIconsInIconSet.postValue(Resource.Loading())
 
         try {
             if (hasInternetConnection()) {
-                val response = repository.getIconSetDetails(iconset_id)
-                iconSetDetails.postValue(handleIconSetDetailsResponse(response))
+                val response = repository.getAllIconsInIconSet(iconSet_id)
+                allIconsInIconSet.postValue(handleAllIconsInIconSetResponse(response))
             } else {
-                iconSetDetails.postValue(Resource.Error("No Internet Connection"))
+                allIconsInIconSet.postValue(Resource.Error("No Internet Connection"))
             }
         } catch (t: Throwable) {
             when (t) {
-                is IOException -> iconSetDetails.postValue(Resource.Error("Network Failure"))
+                is IOException -> allIconsInIconSet.postValue(Resource.Error("Network Failure"))
                 else -> {
-                    iconSetDetails.postValue(Resource.Error(t.message.toString()))
+                    allIconsInIconSet.postValue(Resource.Error(t.message.toString()))
                     Log.d("Error", t.message.toString())
                 }
             }
         }
     }
 
-    private fun handleIconSetDetailsResponse(response: Response<IconSetDetail>): Resource<IconSetDetail>? {
+    private fun handleAllIconsInIconSetResponse(response: Response<AllIconsInIconsSet>): Resource<AllIconsInIconsSet>? {
         if (response.isSuccessful) {
             return Resource.Success(response.body())
         }
@@ -82,6 +84,5 @@ class IconSetDetailsViewModel(
             }
         }
     }
-
 
 }

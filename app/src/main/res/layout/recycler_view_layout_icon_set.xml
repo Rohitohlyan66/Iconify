@@ -20,10 +20,12 @@
             android:layout_alignTop="@id/tv_icon_set_price"
             android:layout_alignBottom="@id/tv_icon_set_price"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_toStartOf="@id/tv_icon_set_price"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
+            android:maxLines="1"
             android:text="Food"
             android:textColor="@color/bold_text"
             android:textSize="18sp" />

@@ -41,7 +41,6 @@ class IconsFragment : Fragment(R.layout.fragment_icons) {
         searchIconsViewModel.searchedIcons.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
-                    Toast.makeText(requireActivity(), "Success", Toast.LENGTH_LONG).show()
                     response.data?.let { searchIconResponse ->
                         searchIconsAdapter.differ.submitList(searchIconResponse.icons.toList())
                     }

@@ -1,18 +1,15 @@
-package com.example.iconify.model.iconSetDetails
+package com.example.iconify.model.userIconsSets
 
-data class IconSetDetail(
+data class Iconset(
     val are_all_icons_glyph: Boolean,
-    val author: Author,
     val categories: List<Category>,
     val icons_count: Int,
     val iconset_id: Int,
     val identifier: String,
     val is_premium: Boolean,
-    val license: License,
     val name: String,
+    val prices: List<Price>,
     val published_at: String,
-    val readme: String,
-    val styles: List<Style>,
-    val type: String,
-    val website_url: String
+    val styles: List<Any>,
+    val type: String
 )

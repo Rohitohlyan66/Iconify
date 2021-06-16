@@ -44,7 +44,6 @@ class IconSetFragment : Fragment(R.layout.fragment_icon_set) {
         publicIconSetViewModel.publicIconSets.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
-                    Toast.makeText(requireActivity(), "Success", Toast.LENGTH_LONG).show()
                     response.data?.let { iconSetResponse ->
                         iconSetAdapter.differ.submitList(iconSetResponse.iconsets.toList())
                     }
@@ -72,6 +71,7 @@ class IconSetFragment : Fragment(R.layout.fragment_icon_set) {
             bundle.putString("author", iconset.author.name)
             bundle.putInt("price", iconset.prices[0].price)
             bundle.putString("license", iconset.prices[0].license.name)
+            bundle.putInt("user_id", iconset.author.user_id)
             findNavController().navigate(
                 R.id.action_viewPagerFragment_to_iconSetDetailsFragment,
                 bundle

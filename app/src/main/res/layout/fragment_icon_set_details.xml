@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.otherFragments.IconSetDetailsFragment">
+
 
     <TextView
         android:id="@+id/tv_name"
@@ -46,12 +48,16 @@
 
     <TextView
         android:id="@+id/tv_author"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
         android:layout_marginStart="24dp"
+        android:layout_toStartOf="@id/tv_price"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
         android:text="James Win"
+
         android:textColor="#3F51B5"
         android:textSize="24sp" />
 
@@ -89,5 +95,12 @@
         android:textColor="@color/bold_text"
         android:textSize="36sp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_icon_set_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_readme"
+        android:layout_marginTop="3dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

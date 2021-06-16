@@ -44,6 +44,9 @@
         <argument
             android:name="license"
             app:argType="string" />
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/iconsDetailsFragment"
@@ -62,6 +65,15 @@
         <action
             android:id="@+id/action_authorDetailsFragment_to_iconSetDetailsFragment"
             app:destination="@id/iconSetDetailsFragment" />
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="license"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/viewPagerFragment"

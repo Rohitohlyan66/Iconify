@@ -1,4 +1,4 @@
-package com.example.iconify.viewModel.iconSetDetails
+package com.example.iconify.viewModel.userDetails
 
 import android.app.Application
 import android.content.Context
@@ -7,50 +7,49 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.ContactsContract
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.iconify.IconifyApplication
-import com.example.iconify.model.iconSetDetails.IconSetDetail
+import com.example.iconify.model.allIconsInIconSet.AllIconsInIconsSet
+import com.example.iconify.model.userDetails.UserDetails
 import com.example.iconify.repository.IconifyRepository
 import com.example.iconify.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
 
-class IconSetDetailsViewModel(
-    private val repository: IconifyRepository,
-    app: Application
+class UserDetailsViewModel(
+    val repository: IconifyRepository,
+    val app: Application
 ) : AndroidViewModel(app) {
 
-    val iconSetDetails: MutableLiveData<Resource<IconSetDetail>> = MutableLiveData()
+    val userDetails: MutableLiveData<Resource<UserDetails>> = MutableLiveData()
 
-    fun getAllDetails(iconset_id: Int) = viewModelScope.launch {
-        safeIconSetDetailsCall(iconset_id)
+    fun getUserDetails(user_id: Int) = viewModelScope.launch {
+        safeUserDetailsCall(user_id)
     }
 
-    private suspend fun safeIconSetDetailsCall(iconset_id: Int) {
-        iconSetDetails.postValue(Resource.Loading())
+    private suspend fun safeUserDetailsCall(user_id: Int) {
+        userDetails.postValue(Resource.Loading())
 
         try {
             if (hasInternetConnection()) {
-                val response = repository.getIconSetDetails(iconset_id)
-                iconSetDetails.postValue(handleIconSetDetailsResponse(response))
+                val response = repository.getUserDetails(user_id)
+                userDetails.postValue(handleUserDetailsResponse(response))
             } else {
-                iconSetDetails.postValue(Resource.Error("No Internet Connection"))
+                userDetails.postValue(Resource.Error("No Internet Connection"))
             }
         } catch (t: Throwable) {
             when (t) {
-                is IOException -> iconSetDetails.postValue(Resource.Error("Network Failure"))
+                is IOException -> userDetails.postValue(Resource.Error("Network Failure"))
                 else -> {
-                    iconSetDetails.postValue(Resource.Error(t.message.toString()))
+                    userDetails.postValue(Resource.Error(t.message.toString()))
                     Log.d("Error", t.message.toString())
                 }
             }
         }
     }
 
-    private fun handleIconSetDetailsResponse(response: Response<IconSetDetail>): Resource<IconSetDetail>? {
+    private fun handleUserDetailsResponse(response: Response<UserDetails>): Resource<UserDetails>? {
         if (response.isSuccessful) {
             return Resource.Success(response.body())
         }
@@ -82,6 +81,5 @@ class IconSetDetailsViewModel(
             }
         }
     }
-
 
 }
