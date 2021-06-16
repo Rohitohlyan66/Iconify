@@ -35,12 +35,14 @@ class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
     lateinit var iconsSetDetailsViewModel: IconSetDetailsViewModel
     lateinit var allIconSetDetailsViewModel: AllIconsInIconSetViewModel
     lateinit var allIconsInIconSetAdapter: IconSetDetailsAdapter
+    lateinit var snackbar: Snackbar
 
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        snackbar = Snackbar.make(view, "Loading...", Snackbar.LENGTH_INDEFINITE)
         setUpRecyclerView()
 
 
@@ -88,7 +90,6 @@ class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { iconDetailResponse ->
-
                         if (iconDetailResponse.readme == null) {
                             tv_readme.text = "N/A"
                         } else {
@@ -96,12 +97,17 @@ class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
                         }
                     }
                 }
-                is Resource.Error -> Snackbar.make(
-                    view,
-                    "Failed due to ${response.message}", Snackbar.LENGTH_SHORT
-                ).show()
+                is Resource.Error -> {
+                    snackbar.dismiss()
+                    Snackbar.make(
+                        view,
+                        "Failed due to ${response.message}", Snackbar.LENGTH_SHORT
+                    ).show()
+                }
 
-                is Resource.Loading -> Snackbar.make(view, "Loading", Snackbar.LENGTH_SHORT).show()
+                is Resource.Loading -> {
+                    snackbar.show()
+                }
             }
 
         })
@@ -117,17 +123,21 @@ class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
 
         allIconSetDetailsViewModel.getAllIconsInIconSet(iconset_id)
 
+
+
         allIconSetDetailsViewModel.allIconsInIconSet.observe(
             viewLifecycleOwner,
             Observer { response ->
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { allIconsInIconSetResponse ->
+                            snackbar.dismiss()
                             allIconsInIconSetAdapter.differ.submitList(allIconsInIconSetResponse.icons.toList())
                             rv_icon_set_details.visibility = View.VISIBLE
                         }
                     }
                     is Resource.Error -> {
+                        snackbar.dismiss()
                         Snackbar.make(
                             view,
                             "Failed due to ${response.message}",
@@ -137,8 +147,7 @@ class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
 
 
                     is Resource.Loading -> {
-                        Snackbar.make(view, "Loading", Snackbar.LENGTH_SHORT)
-                            .show()
+                        snackbar.show()
                     }
                 }
             })

@@ -21,12 +21,13 @@ class IconsFragment : Fragment(R.layout.fragment_icons) {
 
     lateinit var searchIconsViewModel: SearchIconsViewModel
     lateinit var searchIconsAdapter: SearchIconsAdapter
+    lateinit var snackbar: Snackbar
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        snackbar = Snackbar.make(requireParentFragment().requireView(), "Loading...", Snackbar.LENGTH_INDEFINITE)
         setUpRecyclerView()
 
         val repository = IconifyRepository()
@@ -42,16 +43,23 @@ class IconsFragment : Fragment(R.layout.fragment_icons) {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { searchIconResponse ->
+                        snackbar.dismiss()
                         searchIconsAdapter.differ.submitList(searchIconResponse.icons.toList())
                     }
                 }
-                is Resource.Error -> Snackbar.make(
-                    view,
-                    "Failed due to ${response.message}",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                is Resource.Error -> {
+                    snackbar.dismiss()
+                    Snackbar.make(
+                        view,
+                        "Failed due to ${response.message}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
 
-                is Resource.Loading -> Snackbar.make(view, "Loading", Snackbar.LENGTH_SHORT).show()
+                is Resource.Loading -> {
+                    snackbar.show()
+
+                }
             }
 
         })

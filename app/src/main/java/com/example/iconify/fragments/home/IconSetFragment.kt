@@ -22,6 +22,7 @@ class IconSetFragment : Fragment(R.layout.fragment_icon_set) {
 
     lateinit var publicIconSetViewModel: PublicIconSetViewModel
     lateinit var iconSetAdapter: IconSetAdapter
+    lateinit var snackbar: Snackbar
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class IconSetFragment : Fragment(R.layout.fragment_icon_set) {
 
 
         setUpRecyclerView()
+        snackbar = Snackbar.make(requireParentFragment().requireView(), "Loading...", Snackbar.LENGTH_INDEFINITE)
 
         val repository = IconifyRepository()
         val publicIconSetViewModelFactory =
@@ -45,17 +47,23 @@ class IconSetFragment : Fragment(R.layout.fragment_icon_set) {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { iconSetResponse ->
+                       snackbar.dismiss()
                         iconSetAdapter.differ.submitList(iconSetResponse.iconsets.toList())
                     }
                 }
 
-                is Resource.Error -> Snackbar.make(
-                    view,
-                    "Failed due to ${response.message}",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                is Resource.Error -> {
+                    snackbar.dismiss()
+                    Snackbar.make(
+                        view,
+                        "Failed due to ${response.message}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
 
-                is Resource.Loading -> Snackbar.make(view, "Loading", Snackbar.LENGTH_SHORT).show()
+                is Resource.Loading -> {
+                  snackbar.show()
+                }
             }
 
         })

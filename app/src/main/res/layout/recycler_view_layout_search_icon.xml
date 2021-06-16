@@ -34,8 +34,8 @@
             android:fontFamily="sans-serif-medium"
             android:text="James Win"
             android:textColor="@color/bold_text"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            />
 
         <TextView
             android:id="@+id/tv_type"
