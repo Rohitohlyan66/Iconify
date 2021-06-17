@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.iconify.R
+import com.example.iconify.model.publicIconSets.Iconset
 import com.example.iconify.model.searchIcons.Icon
 import kotlinx.android.synthetic.main.fragment_icon_set_details.view.*
 import kotlinx.android.synthetic.main.fragment_icon_set_details.view.tv_name
@@ -79,6 +80,12 @@ class IconSetDetailsAdapter : RecyclerView.Adapter<IconSetDetailsAdapter.MyViewH
             Glide.with(this).load(icon.raster_sizes[count - 1].formats[0].preview_url)
                 .placeholder(R.drawable.placeholder)
                 .into(iv_icon)
+
+            setOnClickListener {
+                onItemClickListener?.let {
+                    it(icon)
+                }
+            }
         }
 
 
@@ -86,6 +93,12 @@ class IconSetDetailsAdapter : RecyclerView.Adapter<IconSetDetailsAdapter.MyViewH
 
     override fun getItemCount(): Int {
         return differ.currentList.count()
+    }
+
+    private var onItemClickListener: ((com.example.iconify.model.allIconsInIconSet.Icon) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (com.example.iconify.model.allIconsInIconSet.Icon) -> Unit) {
+        onItemClickListener = listener
     }
 
 

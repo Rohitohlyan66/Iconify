@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.iconify.R
+import com.example.iconify.model.publicIconSets.Iconset
 import com.example.iconify.model.searchIcons.Icon
 import kotlinx.android.synthetic.main.recycler_view_layout_search_icon.view.*
 
@@ -69,6 +70,13 @@ class SearchIconsAdapter : RecyclerView.Adapter<SearchIconsAdapter.MyViewHolder>
             Glide.with(this).load(searchIcons.raster_sizes[count - 1].formats[0].preview_url)
                 .placeholder(R.drawable.placeholder)
                 .into(iv_icon)
+
+
+            setOnClickListener {
+                onItemClickListener?.let {
+                    it(searchIcons)
+                }
+            }
         }
 
 
@@ -78,5 +86,10 @@ class SearchIconsAdapter : RecyclerView.Adapter<SearchIconsAdapter.MyViewHolder>
         return differ.currentList.count()
     }
 
+    private var onItemClickListener: ((Icon) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Icon) -> Unit) {
+        onItemClickListener = listener
+    }
 
 }

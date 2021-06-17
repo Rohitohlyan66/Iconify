@@ -1,6 +1,7 @@
 package com.example.iconify.network
 
 import com.example.iconify.model.allIconsInIconSet.AllIconsInIconsSet
+import com.example.iconify.model.iconDetails.IconDetails
 import com.example.iconify.model.iconSetDetails.IconSetDetail
 import com.example.iconify.model.publicIconSets.iconSets
 import com.example.iconify.model.searchIcons.SearchIcons
@@ -56,6 +57,12 @@ interface ApiInterface {
         @Path("user_id") user_id: Int,
         @Query("count") iconsPerPage: Int = ICON_PER_PAGE
     ): Response<UserIconSets>
+
+    @Headers("Authorization: Bearer iUW8lH599vERuodwSUAPIrJrXpUMN9Jd8c5pmyIg2Jekj2wzxvwALbAOvA0NgjR6")
+    @GET("v4/icons/{icon_id}")
+    suspend fun getIconDetails(
+        @Path("icon_id") icon_id: Int,
+    ): Response<IconDetails>
 
 
 }

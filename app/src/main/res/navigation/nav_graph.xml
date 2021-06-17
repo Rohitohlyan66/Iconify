@@ -56,6 +56,27 @@
         <action
             android:id="@+id/action_iconsDetailsFragment_to_authorDetailsFragment"
             app:destination="@id/authorDetailsFragment" />
+        <argument
+            android:name="icon_url"
+            app:argType="string" />
+        <argument
+            android:name="icon_name"
+            app:argType="string" />
+        <argument
+            android:name="author_name"
+            app:argType="string" />
+        <argument
+            android:name="icon_type"
+            app:argType="string" />
+        <argument
+            android:name="icon_price"
+            app:argType="integer" />
+        <argument
+            android:name="icon_id"
+            app:argType="integer" />
+        <argument
+            android:name="icon_license"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/authorDetailsFragment"

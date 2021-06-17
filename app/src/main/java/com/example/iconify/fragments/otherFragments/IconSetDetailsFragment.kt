@@ -2,10 +2,7 @@ package com.example.iconify.fragments.otherFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,19 +11,14 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.iconify.R
 import com.example.iconify.adapters.IconSetDetailsAdapter
-import com.example.iconify.adapters.SearchIconsAdapter
 import com.example.iconify.repository.IconifyRepository
 import com.example.iconify.utils.Resource
 import com.example.iconify.viewModel.allIconsInIconSet.AllIconsInIconSetViewModel
 import com.example.iconify.viewModel.allIconsInIconSet.AllIconsInIconSetViewModelFactory
 import com.example.iconify.viewModel.iconSetDetails.IconSetDetailsViewModel
 import com.example.iconify.viewModel.iconSetDetails.IconSetDetailsViewModelFactory
-import com.example.iconify.viewModel.icons.SearchIconsViewModel
-import com.example.iconify.viewModel.icons.SearchIconsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_icon_set_details.*
-import kotlinx.android.synthetic.main.fragment_icon_set_details.view.*
-import kotlinx.android.synthetic.main.fragment_icons.*
 
 
 class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
@@ -151,6 +143,34 @@ class IconSetDetailsFragment : Fragment(R.layout.fragment_icon_set_details) {
                     }
                 }
             })
+
+
+        //Handling Icon Clicks
+        allIconsInIconSetAdapter.setOnItemClickListener { icon ->
+
+            val count = icon.raster_sizes.size
+
+            val bundle = Bundle()
+            bundle.putString("icon_url", icon.raster_sizes[count - 1].formats[0].preview_url)
+            bundle.putString("icon_name", icon.tags[0])
+            bundle.putString("author_name", author)
+            bundle.putString("icon_type", icon.type)
+            bundle.putInt("icon_id", icon.icon_id)
+
+            if (icon.prices == null) {
+                bundle.putInt("icon_price", 0)
+                bundle.putString("icon_license", "N/A")
+            } else {
+                bundle.putInt("icon_price", icon.prices[0].price)
+                bundle.putString("icon_license", icon.prices[0].license.name)
+            }
+
+            findNavController().navigate(
+                R.id.action_iconSetDetailsFragment_to_iconsDetailsFragment,
+                bundle
+            )
+
+        }
 
     }
 
