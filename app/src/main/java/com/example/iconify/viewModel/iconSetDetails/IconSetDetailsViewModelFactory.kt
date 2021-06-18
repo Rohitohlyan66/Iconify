@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.iconify.repository.IconifyRepository
-import com.example.iconify.viewModel.icons.SearchIconsViewModel
 
 class IconSetDetailsViewModelFactory(
     val app: Application,

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.iconify.R
-import com.example.iconify.model.publicIconSets.Iconset
 import com.example.iconify.model.searchIcons.Icon
 import kotlinx.android.synthetic.main.recycler_view_layout_search_icon.view.*
 
@@ -56,6 +55,12 @@ class SearchIconsAdapter : RecyclerView.Adapter<SearchIconsAdapter.MyViewHolder>
         holder.itemView.apply {
             tv_name.text = searchIcons.tags[0]
             tv_type.text = "Type: ${searchIcons.type}"
+
+            if (searchIcons.is_premium) {
+                iv_premium.visibility = View.VISIBLE
+            } else {
+                iv_premium.visibility = View.INVISIBLE
+            }
 
             if (searchIcons.prices == null) {
                 tv_price.text = "$0"

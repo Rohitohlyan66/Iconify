@@ -131,8 +131,14 @@ class AuthorDetailsFragment : Fragment(R.layout.fragment_author_details) {
             bundle.putString("iconSet", it.name)
             bundle.putString("type", it.type)
             bundle.putString("author", name)
-            bundle.putInt("price", it.prices[0].price)
-            bundle.putString("license", it.prices[0].license.name)
+            if(it.prices != null) {
+                bundle.putInt("price", it.prices[0].price)
+                bundle.putString("license", it.prices[0].license.name)
+            } else {
+                bundle.putInt("price", 0)
+                bundle.putString("license", "N/A")
+            }
+
             bundle.putInt("user_id", user_id)
             findNavController().navigate(
                 R.id.action_authorDetailsFragment_to_iconSetDetailsFragment,

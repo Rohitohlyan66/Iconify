@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iconify.R
-import com.example.iconify.model.publicIconSets.Iconset
 import kotlinx.android.synthetic.main.recycler_view_layout_icon_set.view.*
 
 class UserIconSetAdapter : RecyclerView.Adapter<UserIconSetAdapter.MyViewHolder>() {
@@ -54,14 +53,28 @@ class UserIconSetAdapter : RecyclerView.Adapter<UserIconSetAdapter.MyViewHolder>
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val iconSet = differ.currentList[position]
-        val license = differ.currentList[position].prices[0].license.name
+
+        var license = "N/A"
+        var price = 0
+        if (differ.currentList[position].prices != null) {
+            license = differ.currentList[position].prices[0].license.name
+            price = differ.currentList[position].prices[0].price
+        }
+
 
         holder.itemView.apply {
             tv_icon_set_author.visibility = View.INVISIBLE
             tv_icon_set_license.text = "License: $license"
             tv_icon_set_name.text = iconSet.name.toString()
-            tv_icon_set_price.text = "$${iconSet.prices[0].price}"
+            tv_icon_set_price.text = "$$price"
             tv_icon_set_type.text = "Type: ${iconSet.type}"
+
+            if (iconSet.is_premium) {
+                iv_premium.visibility = View.VISIBLE
+            } else {
+                iv_premium.visibility = View.INVISIBLE
+            }
+
 
             //Handling Clicks
             setOnClickListener {

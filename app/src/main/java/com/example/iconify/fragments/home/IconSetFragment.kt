@@ -2,7 +2,6 @@ package com.example.iconify.fragments.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +30,7 @@ class IconSetFragment : Fragment(R.layout.fragment_icon_set) {
 
         setUpRecyclerView()
         snackbar = Snackbar.make(requireParentFragment().requireView(), "Loading...", Snackbar.LENGTH_INDEFINITE)
+
 
         val repository = IconifyRepository()
         val publicIconSetViewModelFactory =

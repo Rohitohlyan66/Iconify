@@ -56,6 +56,11 @@ class IconSetAdapter : RecyclerView.Adapter<IconSetAdapter.MyViewHolder>() {
             tv_icon_set_name.text = iconSet.name.toString()
             tv_icon_set_price.text = "$${iconSet.prices[0].price}"
             tv_icon_set_type.text = "Type: ${iconSet.type}"
+            if (iconSet.is_premium) {
+                iv_premium.visibility = View.VISIBLE
+            } else {
+                iv_premium.visibility = View.INVISIBLE
+            }
 
             //Handling Clicks
             setOnClickListener {

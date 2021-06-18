@@ -12,13 +12,10 @@ import com.example.iconify.R
 import com.example.iconify.adapters.SearchIconsAdapter
 import com.example.iconify.repository.IconifyRepository
 import com.example.iconify.utils.Resource
-import com.example.iconify.viewModel.iconDetails.IconDetailsViewModel
-import com.example.iconify.viewModel.iconDetails.IconDetailsViewModelFactory
 import com.example.iconify.viewModel.icons.SearchIconsViewModel
 import com.example.iconify.viewModel.icons.SearchIconsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_icons.*
-import kotlinx.android.synthetic.main.fragment_icons_details.*
 
 class IconsFragment : Fragment(R.layout.fragment_icons) {
 

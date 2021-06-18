@@ -7,9 +7,10 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.ContactsContract
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.iconify.IconifyApplication
-import com.example.iconify.model.allIconsInIconSet.AllIconsInIconsSet
 import com.example.iconify.model.userDetails.UserDetails
 import com.example.iconify.repository.IconifyRepository
 import com.example.iconify.utils.Resource

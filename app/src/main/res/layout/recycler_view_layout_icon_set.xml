@@ -34,8 +34,9 @@
             android:id="@+id/tv_icon_set_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/iv_premium"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="20$"
@@ -81,6 +82,14 @@
             android:text="James Win"
             android:textColor="@color/light_text"
             android:textSize="10sp" />
+
+        <ImageView
+
+            android:id="@+id/iv_premium"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/premium" />
 
     </RelativeLayout>
 

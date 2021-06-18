@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.iconify.R
-import com.example.iconify.model.publicIconSets.Iconset
-import com.example.iconify.model.searchIcons.Icon
-import kotlinx.android.synthetic.main.fragment_icon_set_details.view.*
 import kotlinx.android.synthetic.main.fragment_icon_set_details.view.tv_name
 import kotlinx.android.synthetic.main.fragment_icon_set_details.view.tv_price
 import kotlinx.android.synthetic.main.fragment_icon_set_details.view.tv_type
@@ -67,6 +64,12 @@ class IconSetDetailsAdapter : RecyclerView.Adapter<IconSetDetailsAdapter.MyViewH
             tv_name.text = icon.tags[0]
             tv_type.text = "Type: ${icon.type}"
 
+            if (icon.is_premium) {
+                iv_premium.visibility = View.VISIBLE
+            } else {
+                iv_premium.visibility = View.INVISIBLE
+            }
+
             if (icon.prices == null) {
                 tv_price.text = "$0"
             } else {
@@ -95,7 +98,8 @@ class IconSetDetailsAdapter : RecyclerView.Adapter<IconSetDetailsAdapter.MyViewH
         return differ.currentList.count()
     }
 
-    private var onItemClickListener: ((com.example.iconify.model.allIconsInIconSet.Icon) -> Unit)? = null
+    private var onItemClickListener: ((com.example.iconify.model.allIconsInIconSet.Icon) -> Unit)? =
+        null
 
     fun setOnItemClickListener(listener: (com.example.iconify.model.allIconsInIconSet.Icon) -> Unit) {
         onItemClickListener = listener

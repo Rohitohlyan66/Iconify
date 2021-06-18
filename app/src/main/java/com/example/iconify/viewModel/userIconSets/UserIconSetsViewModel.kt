@@ -10,7 +10,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.iconify.IconifyApplication
-import com.example.iconify.model.publicIconSets.iconSets
 import com.example.iconify.model.userIconsSets.UserIconSets
 import com.example.iconify.repository.IconifyRepository
 import com.example.iconify.utils.Resource
